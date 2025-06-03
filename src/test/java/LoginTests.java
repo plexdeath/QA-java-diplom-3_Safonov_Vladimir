@@ -50,8 +50,6 @@ public class LoginTests extends BaseTest {
                 "Проверяем, что созданный пользователь отображается в интерфейсе после авторизации",
                 lkPage.getLkLoginText().equals(mainPage.getCreatedUserEmail())
         );
-
-
     }
 
     @Test
@@ -77,7 +75,7 @@ public class LoginTests extends BaseTest {
     public void testEnterRegisterAccount() throws InterruptedException {
         mainPage.createUserViaApi(); //создали пользователя
         registerPage.openRegisterUrl();//перешли на url регистрации
-        registerPage.clickEnterRegisterButtonandForgotPassword();//Кликаем на кнопку войти на форме регистрации
+        registerPage.clickEnterRegisterButton();//Кликаем на кнопку войти на форме регистрации
         loginPage.inputEmail(mainPage.getCreatedUserEmail());
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
@@ -93,8 +91,8 @@ public class LoginTests extends BaseTest {
     @Description("вход через кнопку войти на форме «Востановления пароля»")
     public void testEnterRecoveryAccount() throws InterruptedException {
         mainPage.createUserViaApi(); //создали пользователя
-        registerPage.openForgotUrl();//перешли на url востановления пароля
-        registerPage.clickEnterRegisterButtonandForgotPassword();//Кликаем на кнопку войти на форме востановления пароля
+        recoveryPage.openForgotUrl();//перешли на url востановления пароля
+        recoveryPage.clickEnterForgotButton();//Кликаем на кнопку войти на форме востановления пароля
         loginPage.inputEmail(mainPage.getCreatedUserEmail());
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
