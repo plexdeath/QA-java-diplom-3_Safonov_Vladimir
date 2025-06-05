@@ -60,9 +60,10 @@ public class RegisterTests extends BaseTest {
         registerPage.inputEmail(user.getEmail());
         registerPage.inputPassword(password);
         registerPage.clickEmail();
-        Assert.assertTrue(
-                "Проверка ошибки если пароль менее 6 символов",
-                registerPage.errorIncorrectPassword().equals("Некорректный пароль")
+        Assert.assertEquals(
+                "Проверка ошибки, если пароль менее 6 символов",
+                "Некорректный пароль",
+                registerPage.errorIncorrectPassword()
         );
     }
     @After

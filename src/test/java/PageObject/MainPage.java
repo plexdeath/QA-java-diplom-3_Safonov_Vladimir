@@ -138,19 +138,19 @@ public class MainPage extends BaseTest {
     @Step("Проверка, что активна вкладка 'Булки'")
     public void assertBunsTabIsActive() {
         WebElement element = webDriver.findElement(activeTab);
-        assertTrue("Баг в хроме Вкладка 'Булки' не активна", element.getText().equals("Булки"));
+        assertEquals("Вкладка 'Соусы' не активна", "Булки", element.getText());
     }
 
     @Step("Проверка, что активна вкладка 'Соусы'")
     public void assertSaucesTabIsActive() {
         WebElement element = webDriver.findElement(activeTab);
-        assertTrue("Вкладка 'Соусы' не активна", element.getText().equals("Соусы"));
+        assertEquals("Вкладка 'Соусы' не активна", "Соусы", element.getText());
     }
 
     @Step("Проверка, что активна вкладка 'Начинки'")
     public void assertFillingsTabIsActive() {
         WebElement element = webDriver.findElement(activeTab);
-        assertTrue(" Вкладка 'Начинки' не активна", element.getText().equals("Начинки"));
+        assertEquals("Вкладка 'Соусы' не активна", "Начинки", element.getText());
     }
 
     public String getCurrentUserToken() {
