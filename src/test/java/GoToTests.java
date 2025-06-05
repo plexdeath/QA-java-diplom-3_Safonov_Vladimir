@@ -1,3 +1,4 @@
+import PageObject.LkPage;
 import Utils.BaseTest;
 import Utils.DataTests;
 import Api.UserApiClient;
@@ -43,8 +44,7 @@ public class GoToTests extends BaseTest {
     @Description("Проверка перехода по клику на «Личный кабинет»")
     public void testLKverify() throws InterruptedException {
         mainPage.createUserViaApi(); //создали пользователя
-        openBaseUrl();
-        mainPage.clickEnterLK();
+        lkPage.openAutorizeLkUrl(); //перешли на страницу авторизации
         loginPage.inputEmail(mainPage.getCreatedUserEmail());
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
@@ -53,21 +53,31 @@ public class GoToTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка перехода по клику на «Конструктор» и на логотип Stellar Burgers.")
-    @Description("Проверить переход по клику на «Конструктор» и на логотип Stellar Burgers.")
-    public void testConstructorLogoVerify() throws InterruptedException {
-        mainPage.createUserViaApi(); //создали пользователя
-        openBaseUrl();
-        mainPage.clickEnterLK();
-        loginPage.inputEmail(mainPage.getCreatedUserEmail());
-        loginPage.inputPassword(mainPage.getCreatedUserPassword());
-        loginPage.enterButtonClick();
-        mainPage.clickEnterLK();//перешли в лк c главной страницы
-        mainPage.clickConstructorButton();//кликнуть по кнопке Конструктор
-        mainPage.verifyMainPageURL();//проверить что мы на главной странице
-        mainPage.clickEnterLK();//перешли в лк c главной страницы
-        mainPage.clickLogoBurgers();//Кликнули на логотип Бургрной
-        mainPage.verifyMainPageURL();// Проверили что мы на главной странице
+    @DisplayName("Переход по кнопке «Конструктор» из ЛК")
+    @Description("Проверить, что при клике на «Конструктор» из ЛК происходит переход на главную страницу")
+    public void testConstructorButtonRedirectsToMainPage() {
+        mainPage.createUserViaApi(); // Авторизация
+        lkPage.openAutorizeLkUrl(); //перешли на страницу авторизации
+        loginPage.inputEmail(mainPage.getCreatedUserEmail());//ввод Email
+        loginPage.inputPassword(mainPage.getCreatedUserPassword());//Ввод Пароля
+        loginPage.enterButtonClick();//Нажать войти
+        mainPage.clickEnterLK();//Перейти в ЛК
+        mainPage.clickConstructorButton();//Кликнуть на конструктор
+        mainPage.verifyMainPageUrlConstructor();//Проверить что мы на главной странице после клика
+    }
+
+    @Test
+    @DisplayName("Переход по клику на логотип Stellar Burgers из ЛК")
+    @Description("Проверить, что при клике на логотип из ЛК происходит переход на главную страницу")
+    public void testLogoClickRedirectsToMainPage() {
+        mainPage.createUserViaApi();// Авторизация
+        lkPage.openAutorizeLkUrl(); //перешли на страницу авторизации
+        loginPage.inputEmail(mainPage.getCreatedUserEmail());//ввод Email
+        loginPage.inputPassword(mainPage.getCreatedUserPassword());//Ввод Пароля
+        loginPage.enterButtonClick();//Нажать войти
+        mainPage.clickEnterLK();//Перейти в ЛК
+        mainPage.clickLogoBurgers();//Кликнуть на конструктор
+        mainPage.verifyMainPageUrlBurger();//Проверить что мы на главной странице после клика
     }
 
     @Test
@@ -75,11 +85,10 @@ public class GoToTests extends BaseTest {
     @Description("Проверить что вышли из личного кабинета")
     public void testExitLK() throws InterruptedException {
         mainPage.createUserViaApi(); //создали пользователя
-        openBaseUrl();
-        mainPage.clickEnterLK();
-        loginPage.inputEmail(mainPage.getCreatedUserEmail());
-        loginPage.inputPassword(mainPage.getCreatedUserPassword());
-        loginPage.enterButtonClick();
+        lkPage.openAutorizeLkUrl(); //перешли на страницу авторизации
+        loginPage.inputEmail(mainPage.getCreatedUserEmail());//Ввели почту
+        loginPage.inputPassword(mainPage.getCreatedUserPassword());//Ввели пароль
+        loginPage.enterButtonClick();// Нажали на кнопку войти
         mainPage.clickEnterLK();//перешли в лк c главной страницы
         lkPage.clickExitButton();//нажали выйти
         loginPage.verifyExitLkURL();//здесь мы убеждаемся что находимся на странице с логином после выхода
@@ -87,16 +96,31 @@ public class GoToTests extends BaseTest {
 
 
     @Test
-    @DisplayName("Проверить , что работают переходы к разделам: Булки, Соусы, Начинки")
-    @Description("Проверка , что работают переходы к разделам: Булки, Соусы, Начинки")
-    public void verifyBunSouse() throws InterruptedException {
+    @DisplayName("Проверка перехода к разделу Соусы")
+    @Description("Проверка, что при клике на вкладку 'Соусы' она становится активной")
+    public void testSaucesTabIsActive() {
         openBaseUrl();
-        mainPage.clickSaucesTab(); //Кликнуть на соусы
-        mainPage.assertSaucesTabIsActive(); //проверить что соусы активны
-        mainPage.clickFillingsTab(); //Кликнуть на начинки
-        mainPage.assertFillingsTabIsActive(); //проверить что начинки активны
-        mainPage.clickBunsTab();//Кликнуть на булки
-        mainPage.assertBunsTabIsActive();//проверить что булки активны
+        mainPage.clickSaucesTab();
+        mainPage.assertSaucesTabIsActive();
+    }
+
+    @Test
+    @DisplayName("Проверка перехода к разделу Начинки")
+    @Description("Проверка, что при клике на вкладку 'Начинки' она становится активной")
+    public void testFillingsTabIsActive() {
+        openBaseUrl();
+        mainPage.clickFillingsTab();
+        mainPage.assertFillingsTabIsActive();
+    }
+
+    @Test
+    @DisplayName("Проверка перехода к разделу Булки")
+    @Description("Проверка, что при клике на вкладку 'Булки' она становится активной")
+    public void testBunsTabIsActive() throws InterruptedException {
+        openBaseUrl();
+        mainPage.clickFillingsTab();//Так как булки активен и на него нельзя сделать клик сначала кликаем на начинки а потом на булки
+        mainPage.clickBunsTab();//кликаем на булки
+        mainPage.assertBunsTabIsActive();//Проверяем, что при клике на вкладку 'Булки' она становится активной"
     }
 
 

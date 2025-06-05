@@ -1,5 +1,4 @@
 package PageObject;
-
 import Api.UserApiClient;
 import Utils.BaseTest;
 import Utils.DataTests;
@@ -60,11 +59,19 @@ public class MainPage extends BaseTest {
         return this;
     }
 
-    @Step("Проверить что после перехода мы на клавной странице")
-    public String verifyMainPageURL() {
+    @Step("Проверить что после перехода мы на главной странице")
+    public String verifyMainPageUrlConstructor() {
         WebElement element = waitForElementToBeClickable(constructorButton);
         String actualUrl = webDriver.getCurrentUrl();
-        assertEquals("Ссылка ведёт не на главную страницу", "https://stellarburgers.nomoreparties.site/", actualUrl);
+        assertEquals("Ссылка ведёт не на главную страницу после клика на кнопку конструктор", "https://stellarburgers.nomoreparties.site/", actualUrl);
+        return actualUrl;
+    }
+
+    @Step("Проверить что после перехода мы на главной странице")
+    public String verifyMainPageUrlBurger() {
+        WebElement element = waitForElementToBeClickable(constructorButton);
+        String actualUrl = webDriver.getCurrentUrl();
+        assertEquals("Ссылка ведёт не на главную страницу после клика на логотип", "https://stellarburgers.nomoreparties.site/", actualUrl);
         return actualUrl;
     }
 
@@ -131,7 +138,7 @@ public class MainPage extends BaseTest {
     @Step("Проверка, что активна вкладка 'Булки'")
     public void assertBunsTabIsActive() {
         WebElement element = webDriver.findElement(activeTab);
-        assertTrue("Вкладка 'Булки' не активна", element.getText().equals("Булки"));
+        assertTrue("Баг в хроме Вкладка 'Булки' не активна", element.getText().equals("Булки"));
     }
 
     @Step("Проверка, что активна вкладка 'Соусы'")
@@ -143,7 +150,7 @@ public class MainPage extends BaseTest {
     @Step("Проверка, что активна вкладка 'Начинки'")
     public void assertFillingsTabIsActive() {
         WebElement element = webDriver.findElement(activeTab);
-        assertTrue("Баг в хроме Вкладка 'Начинки' не активна", element.getText().equals("Начинки"));
+        assertTrue(" Вкладка 'Начинки' не активна", element.getText().equals("Начинки"));
     }
 
     public String getCurrentUserToken() {

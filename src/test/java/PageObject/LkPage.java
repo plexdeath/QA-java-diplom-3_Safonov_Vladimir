@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class LkPage extends BaseTest {
     private WebDriver webDriver;
+    private static final String login_form = "https://stellarburgers.nomoreparties.site/login";
     private final By nameInput = By.xpath(".//label[text()='Имя']/following-sibling::input");
     private final By loginInput = By.xpath(".//label[text()='Логин']/following-sibling::input");
     private final By exitButton = By.xpath(".//button[text()='Выход']");
@@ -23,6 +24,11 @@ public class LkPage extends BaseTest {
 
     public LkPage(WebDriver webDriver) {
         this.webDriver = webDriver;
+    }
+
+    @Step("Открыть страницу авторизации")
+    public void openAutorizeLkUrl() {
+        webDriver.get(login_form);
     }
 
     protected WebElement waitForElementToBeClickable(By locator) {

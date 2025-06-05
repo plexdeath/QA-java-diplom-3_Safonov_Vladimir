@@ -46,9 +46,10 @@ public class LoginTests extends BaseTest {
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
         mainPage.clickEnterLK();//перешли в лк c главной страницы
-        Assert.assertTrue(
+        Assert.assertEquals(
                 "Проверяем, что созданный пользователь отображается в интерфейсе после авторизации",
-                lkPage.getLkLoginText().equals(mainPage.getCreatedUserEmail())
+                mainPage.getCreatedUserEmail(),
+                lkPage.getLkLoginText()
         );
     }
 
@@ -63,9 +64,10 @@ public class LoginTests extends BaseTest {
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
         mainPage.clickEnterLK();//перешли в лк c главной страницы
-        Assert.assertTrue(
+        Assert.assertEquals(
                 "Проверяем, что созданный пользователь отображается в интерфейсе после авторизации",
-                lkPage.getLkLoginText().equals(mainPage.getCreatedUserEmail())
+                mainPage.getCreatedUserEmail(),
+                lkPage.getLkLoginText()
         );
     }
 
@@ -80,9 +82,10 @@ public class LoginTests extends BaseTest {
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
         mainPage.clickEnterLK();//перешли в лк c главной страницы
-        Assert.assertTrue(
+        Assert.assertEquals(
                 "Проверяем, что созданный пользователь отображается в интерфейсе после авторизации",
-                lkPage.getLkLoginText().equals(mainPage.getCreatedUserEmail())
+                mainPage.getCreatedUserEmail(),
+                lkPage.getLkLoginText()
         );
     }
 
@@ -97,9 +100,10 @@ public class LoginTests extends BaseTest {
         loginPage.inputPassword(mainPage.getCreatedUserPassword());
         loginPage.enterButtonClick();
         mainPage.clickEnterLK();//перешли в лк c главной страницы
-        Assert.assertTrue(
+        Assert.assertEquals(
                 "Проверяем, что созданный пользователь отображается в интерфейсе после авторизации",
-                lkPage.getLkLoginText().equals(mainPage.getCreatedUserEmail())
+                mainPage.getCreatedUserEmail(),
+                lkPage.getLkLoginText()
         );
     }
 
